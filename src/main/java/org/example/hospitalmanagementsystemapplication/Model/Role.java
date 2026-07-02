@@ -1,4 +1,4 @@
-package com.hospital.management.model.entity.enums;
+package org.example.hospitalmanagementsystemapplication.Model;
 
 public enum Role {
     ADMINISTRATOR,

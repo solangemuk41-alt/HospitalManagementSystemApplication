@@ -1,4 +1,4 @@
-package com.hospital.management.model.entity;
+package org.example.hospitalmanagementsystemapplication.Model;
 
 import com.hospital.management.model.entity.enums.Role;
 import jakarta.persistence.*;
@@ -17,10 +17,10 @@ public class User extends AuditEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

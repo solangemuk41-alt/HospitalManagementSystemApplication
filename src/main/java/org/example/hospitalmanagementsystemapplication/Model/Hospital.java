@@ -18,7 +18,7 @@ public class Hospital extends AuditEntity {
     @Column(nullable = false)
     private String telephone;
 
-    @Column(nullable = false)
+    @Column(name = "physical_address", nullable = false)
     private String physicalAddress;
 
     @OneToOne(cascade = CascadeType.ALL)
