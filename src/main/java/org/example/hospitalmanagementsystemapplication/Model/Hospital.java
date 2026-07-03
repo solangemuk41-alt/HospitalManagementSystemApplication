@@ -1,39 +1,58 @@
 package org.example.hospitalmanagementsystemapplication.Model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "hospitals")
-@EqualsAndHashCode(callSuper = true)
-public class Hospital extends AuditEntity {
+public class Hospital extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
 
+    @NotBlank
     @Column(nullable = false)
     private String telephone;
 
-    @Column(name = "physical_address", nullable = false)
-    private String physicalAddress;
+    @NotBlank
+    @Column(nullable = false)
+    private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "administrator_id")
+    // One hospital -> one administrator (created automatically at registration)
+    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private Administrator administrator;
 
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
+    @Builder.Default
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
-    private List<MedicalService> services = new ArrayList<>();
-
-    @OneToMany(mappedBy = "hospital")
-    private List<Patient> patients = new ArrayList<>();
-
-    @OneToMany(mappedBy = "hospital")
-    private List<Appointment> appointments = new ArrayList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HospitalService> services = new ArrayList<>();
 }
