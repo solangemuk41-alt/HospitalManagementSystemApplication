@@ -117,7 +117,7 @@ public class DiagnosisController {
     private void verifyAccessToDiagnosis(Long diagnosisId, Authentication authentication) {
         if (authentication.getAuthorities().stream().noneMatch(
                 a -> a.getAuthority().equals("ROLE_ADMINISTRATOR"))) {
-            // For doctors and patients, verify they have access
+
         }
     }
 

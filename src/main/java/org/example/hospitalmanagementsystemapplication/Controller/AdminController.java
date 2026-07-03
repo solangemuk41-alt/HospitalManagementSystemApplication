@@ -22,10 +22,6 @@ public class AdminController {
         return ResponseEntity.ok(stats);
     }
 
-    /**
-     * Get system health status
-     * GET /api/admin/system/health
-     */
     @GetMapping("/system/health")
     public ResponseEntity<SystemStatusResponse> getSystemHealth() {
         SystemStatusResponse status = adminService.getSystemHealth();

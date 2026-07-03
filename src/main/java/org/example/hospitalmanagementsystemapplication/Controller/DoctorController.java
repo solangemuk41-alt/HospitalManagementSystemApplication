@@ -150,7 +150,7 @@ public class DoctorController {
         return ResponseEntity.ok(doctors);
     }
 
-    // Helper method for security
+
     private void verifyDoctorAccess(Long doctorId, Authentication authentication) {
         if (authentication.getAuthorities().stream().noneMatch(
                 a -> a.getAuthority().equals("ROLE_ADMINISTRATOR"))) {

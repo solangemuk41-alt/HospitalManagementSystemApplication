@@ -76,10 +76,6 @@ public class MedicalServiceController {
         return ResponseEntity.ok(services);
     }
 
-    /**
-     * Get all services with pagination (Admin only)
-     * GET /api/services/all
-     */
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<Page<MedicalServiceResponse>> getAllServicesPaginated(
