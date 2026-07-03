@@ -1,15 +1,21 @@
 package org.example.hospitalmanagementsystemapplication.Dtos;
 
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppointmentRequest {
+
     @NotNull(message = "Appointment date is required")
     @FutureOrPresent(message = "Appointment date cannot be in the past")
     private LocalDate appointmentDate;
@@ -17,14 +23,11 @@ public class AppointmentRequest {
     @NotNull(message = "Appointment time is required")
     private LocalTime appointmentTime;
 
-    private String symptoms;
-
-    @NotBlank(message = "Reason for visit is required")
-    private String reasonForVisit;
-
-    @NotNull(message = "Service ID is required")
+    @NotNull(message = "Service is required")
     private Long serviceId;
 
-    @NotNull(message = "Doctor ID is required")
+    @NotNull(message = "Doctor is required")
     private Long doctorId;
+
+    private String reasonForVisit;
 }

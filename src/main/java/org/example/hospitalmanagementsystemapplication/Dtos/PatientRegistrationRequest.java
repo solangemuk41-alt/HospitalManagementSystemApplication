@@ -1,31 +1,44 @@
 package org.example.hospitalmanagementsystemapplication.Dtos;
 
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import com.shecancode.hospitalms.entity.enums.Gender;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PatientRegistrationRequest {
+
+    private String nationalId; // optional
+
     @NotBlank(message = "Full name is required")
     private String fullName;
 
-    private String nationalId;
-    private String passportNumber;
-
     @NotNull(message = "Date of birth is required")
-    @Past(message = "Date of birth must be in the past")
+    @Past(message = "Date of birth cannot be in the future")
     private LocalDate dateOfBirth;
 
-    @NotBlank(message = "Gender is required")
-    private String gender;
+    @NotNull(message = "Gender is required")
+    private Gender gender;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
+    @NotBlank @Email
     private String email;
 
+    @NotBlank(message = "Password is required")
+    private String password;
+
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid phone format")
+    @Pattern(regexp = "^\\+?[0-9]{9,15}$", message = "Phone number format is invalid")
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")
@@ -35,11 +48,6 @@ public class PatientRegistrationRequest {
     private String emergencyContactName;
 
     @NotBlank(message = "Emergency contact phone is required")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Invalid emergency contact phone format")
+    @Pattern(regexp = "^\\+?[0-9]{9,15}$", message = "Emergency contact phone format is invalid")
     private String emergencyContactPhone;
-
-    @NotBlank(message = "Password is required")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message = "Password must be at least 8 characters and contain uppercase, lowercase, number and special character")
-    private String password;
 }
